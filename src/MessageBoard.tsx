@@ -1,6 +1,6 @@
 export default function MessageBoard() {
   return (
-    <div>
+    <div className="pageDiv">
       <h1>Message Board</h1>
     </div>
   );
