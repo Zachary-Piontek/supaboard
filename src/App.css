@@ -10,6 +10,7 @@
   margin: 0;
   padding: 0;
   border: 0;
+  box-sizing: border-box;
 }
 
 body {
@@ -25,9 +26,22 @@ body {
 
 nav {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 1fr 3fr;
+  align-items: center;
   justify-items: center;
   background-color: #48435C;
+  height: 20vh;
+  width: 100%;
+}
+
+.supaboard-div {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  height: 20vh;
+}
+
+.supaboard-div img {
+  max-height: 20vh;
 }
 
 a {

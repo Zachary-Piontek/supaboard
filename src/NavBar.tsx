@@ -5,7 +5,18 @@ export default function NavBar() {
     <>
       <nav>
         <Link to="/">
-          <img src="/vite.svg" alt="Vite Logo" />
+          <div className="supaboard-div">
+            <img
+              className="supaboard-logo"
+              src="/supaboard-logo-clear.png"
+              alt="logo"
+            />
+            <img
+              className="supaboard-logo-text"
+              src="/supaboard-name.png"
+              alt="name"
+            />
+          </div>
         </Link>
         <ul>
           <li>
