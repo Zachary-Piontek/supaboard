@@ -15,7 +15,7 @@ export default function MessageBoard() {
         <></>
       ) : (
         <h2>
-          Login here <Login /> to join discussions
+          <Login /> to join discussions
         </h2>
       )}
       <Outlet />

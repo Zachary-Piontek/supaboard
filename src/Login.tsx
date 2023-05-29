@@ -1,24 +1,37 @@
+import { Auth } from "@supabase/auth-ui-react";
+import { useContext, useEffect, useState } from "react";
+import { UserContext } from "./App";
 import Dialog from "./Dialog";
-import { useState } from "react";
+import { supaClient } from "./supa-client";
 
 export default function Login() {
   const [showModal, setShowModal] = useState(false);
-  const [authMode, setAuthMode] = useState<"login" | "signup">("login");
+  const [authMode, setAuthMode] = useState<"sign_in" | "sign_up">("sign_in");
+  const { session } = useContext(UserContext);
+
+  useEffect(() => {
+    if (session?.user) {
+      setShowModal(false);
+    }
+  }, [session]);
+
   return (
     <>
       <div>
         <button
           onClick={() => {
+            setAuthMode("sign_in");
             setShowModal(true);
-            setAuthMode("login");
           }}
         >
-          Log in
+          login
         </button>
+        <span> or </span>
         <button
+          className="login-button"
           onClick={() => {
+            setAuthMode("sign_up");
             setShowModal(true);
-            setAuthMode("signup");
           }}
         >
           sign up
@@ -27,7 +40,12 @@ export default function Login() {
       <Dialog
         open={showModal}
         dialogStateChange={(open) => setShowModal(open)}
-        contents={<>{authMode}</>}
+        contents={
+          <>
+            <Auth supabaseClient={supaClient} view={authMode} />
+            <button onClick={() => setShowModal(false)}>Close</button>
+          </>
+        }
       />
     </>
   );
