@@ -3,10 +3,10 @@ import { RouterProvider, createBrowserRouter, Outlet } from "react-router-dom";
 import MessageBoard from "./MessageBoard";
 import AllPosts from "./AllPosts";
 import PostView from "./PostView";
-import Welcome from "./Welcome";
 import NavBar from "./NavBar";
 import { createContext } from "react";
 import { SupaboardUserInfo, useSession } from "./use-session";
+import { Welcome } from "./Welcome";
 
 const router = createBrowserRouter([
   {

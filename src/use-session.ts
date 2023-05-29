@@ -2,6 +2,7 @@ import { RealtimeChannel, Session } from "@supabase/supabase-js";
 import { supaClient } from "./supa-client";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { setReturnPath } from './Login';
 
 export interface UserProfile {
     username?: string;
@@ -14,36 +15,36 @@ export interface SupaboardUserInfo {
 }
 
 export function useSession(): SupaboardUserInfo {
-    const [ userInfo, setUserInfo ] = useState<SupaboardUserInfo>({
-        session: null,
-        profile: null,
+  const [userInfo, setUserInfo] = useState<SupaboardUserInfo>({
+    profile: null,
+    session: null,
+  });
+  const [channel, setChannel] = useState<RealtimeChannel | null>(null);
+  const navigate = useNavigate();
+  useEffect(() => {
+    supaClient.auth.getSession().then(({ data: { session } }) => {
+      setUserInfo({ ...userInfo, session });
+      supaClient.auth.onAuthStateChange((_event, session) => {
+        setUserInfo({ session, profile: null });
+      });
     });
-    const [ channel, setChannel ] = useState<RealtimeChannel | null>(null);
+  }, []);
 
-    useEffect(() => {
-        supaClient.auth.getSession().then(({ data: { session } }) => {
-          setUserInfo({ ...userInfo, session });
-          supaClient.auth.onAuthStateChange((_event, session) => {
-            setUserInfo({ session, profile: null });
-          });
-        });
-      }, []);
-
-      useEffect(() => {
-        if (userInfo.session?.user && !userInfo.profile) {
-          listenToUserProfileChanges(userInfo.session.user.id).then(
-            (newChannel) => {
-              if (channel) {
-                channel.unsubscribe();
-              }
-              setChannel(newChannel);
-            }
-          );
-        } else if (!userInfo.session?.user) {
-          channel?.unsubscribe();
-          setChannel(null);
+  useEffect(() => {
+    if (userInfo.session?.user && !userInfo.profile) {
+      listenToUserProfileChanges(userInfo.session.user.id).then(
+        (newChannel) => {
+          if (channel) {
+            channel.unsubscribe();
+          }
+          setChannel(newChannel);
         }
-      }, [userInfo.session]);
+      );
+    } else if (!userInfo.session?.user) {
+      channel?.unsubscribe();
+      setChannel(null);
+    }
+  }, [userInfo.session]);
 
       async function listenToUserProfileChanges(userId: string) {
         const { data } = await supaClient
@@ -52,6 +53,9 @@ export function useSession(): SupaboardUserInfo {
           .filter("user_id", "eq", userId);
         if (data?.[0]) {
           setUserInfo({ ...userInfo, profile: data?.[0] });
+        } else {
+          setReturnPath();
+          navigate("/welcome");
         }
         return supaClient
           .channel(`public:user_profiles`)
@@ -72,3 +76,4 @@ export function useSession(): SupaboardUserInfo {
     
       return userInfo;
     }
+
