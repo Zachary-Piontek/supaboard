@@ -28,7 +28,6 @@ nav {
   display: grid;
   grid-template-columns: 1fr 3fr;
   align-items: center;
-  justify-items: center;
   background-color: #48435C;
   height: 20vh;
   width: 100%;
@@ -55,4 +54,37 @@ li {
 
 span {
   color: #EDFFEC;
+}
+
+button {
+  border: 1px solid #9792E3;
+  border-radius: 0.15rem;
+}
+
+ul {
+  display: grid;
+  justify-content: flex-end;
+  align-items: flex-end;
+}
+
+.modal {
+  display: grid;
+  justify-content: center;
+  width: 75vw;
+  background-color: #48435C;
+  border: 1px solid #9792E3;
+}
+
+.login-div {
+  display: grid;
+  justify-content: center;
+  align-items: center;
+  justify-items: center;
+  height: 100%;
+}
+
+.navbar-login {
+  display: grid;
+  grid-template-columns: 1fr;
+  z-index: 1;
 }

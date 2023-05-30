@@ -43,6 +43,7 @@ export default function Dialog({
           }
           updateDialogState(false);
         }}
+        className="modal"
       >
         <div>
           <div ref={dialog}>{contents}</div>

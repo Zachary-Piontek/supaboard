@@ -46,7 +46,18 @@ export default function Login() {
         dialogStateChange={(open) => setShowModal(open)}
         contents={
           <>
-            <Auth supabaseClient={supaClient} view={authMode} />
+            <Auth
+              supabaseClient={supaClient}
+              view={authMode}
+              appearance={{
+                className: {
+                  container: "login-form-container",
+                  label: "login-form-label",
+                  button: "login-form-button",
+                  input: "login-form-input",
+                },
+              }}
+            />
             <button onClick={() => setShowModal(false)}>Close</button>
           </>
         }

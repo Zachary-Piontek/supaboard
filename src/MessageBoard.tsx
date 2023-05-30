@@ -14,9 +14,9 @@ export default function MessageBoard() {
       {userProfile.session ? (
         <></>
       ) : (
-        <h2>
+        <div className="login-div">
           <Login /> to join discussions
-        </h2>
+        </div>
       )}
       <Outlet />
     </div>

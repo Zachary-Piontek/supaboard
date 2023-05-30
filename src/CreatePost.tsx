@@ -34,7 +34,6 @@ export function CreatePost({ newPostCreated = () => {} }: CreatePostProps) {
     <>
       <form
         className="create-post-form"
-        data-e2e="create-post-form"
         onSubmit={(event) => {
           event.preventDefault();
           createNewPost({ session, title, content }).then(({ error }) => {
@@ -59,7 +58,6 @@ export function CreatePost({ newPostCreated = () => {} }: CreatePostProps) {
           type="text"
           name="title"
           ref={titleInputRef}
-          className="create-post-title-input"
           placeholder="Your Title Here"
           onChange={({ target: { value } }) => {
             setTitle(value);
@@ -74,7 +72,7 @@ export function CreatePost({ newPostCreated = () => {} }: CreatePostProps) {
           }}
         />
         <div>
-          <button type="submit" className="create-post-submit-button">
+          <button type="submit" className="create-post-button">
             Submit
           </button>
         </div>

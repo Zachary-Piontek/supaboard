@@ -30,7 +30,9 @@ export default function NavBar() {
               <span>Message Board</span>
             </Link>
           </li>
-          <li>{session?.user ? <UserMenu /> : <Login />}</li>
+          <li className="navbar-login">
+            {session?.user ? <UserMenu /> : <Login />}
+          </li>
         </ul>
       </nav>
     </>
